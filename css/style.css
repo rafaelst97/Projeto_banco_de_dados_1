@@ -1,0 +1,21 @@
+.margemAjustada{
+    margin-top: 20px;
+}
+
+.medidasBotao{
+    max-width: 200px;
+    min-width: 100px;
+}
+
+.required{
+    color: red;
+}
+
+.listagem{
+    min-width: 800px;
+}
+
+.btnListagem{
+    width: 16;
+    height: 16;
+}
