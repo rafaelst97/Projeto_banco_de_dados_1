@@ -62,6 +62,7 @@ function preparaModal(id){
 function excluirItem(){
     let id = $("#idExcluir").val();
     let itensTabela = buscarDeLocalStorage("itensTabela");
+    deletarProduto(id);
     itensTabela = transformaJsonEmObjeto(itensTabela);   
     itensTabela.splice(id, 1);
     itensTabela = transformarEmJson(itensTabela);

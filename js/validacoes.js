@@ -89,7 +89,6 @@ function verificaValidade(item){
     let fabricacao = item.dataFabricacao.getTime();
     let hoje = new Date();
     let itemValido = true;
-    debugger;
 
     if (item.dataValidade != null){
         validade = item.dataValidade.getTime();

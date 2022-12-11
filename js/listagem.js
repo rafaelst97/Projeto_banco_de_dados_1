@@ -5,6 +5,7 @@ $(document).ready(function(){
 function listar(){
 
     let itensTabela = buscarDeLocalStorage("itensTabela");
+    let itensTabela2 = selectTodosProdutos();
     itensTabela = transformaJsonEmObjeto(itensTabela);
     itensTabela.forEach(inserirLinha);
     
