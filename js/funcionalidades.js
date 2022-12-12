@@ -42,11 +42,15 @@ function salvar(edicao = false){
 
         }else{
             let id = $("#itemEditado").val();
+            updateProduto(item, id);
             itensTabela[id] = item;
             atualizaPagina();
         }
 
-        inserirProduto(item);
+        if (edicao == false){
+            inserirProduto(item);
+        }
+
         itensTabela = transformarEmJson(itensTabela);
         salvarEmLocalStorage(itensTabela);
 

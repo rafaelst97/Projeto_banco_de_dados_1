@@ -39,3 +39,9 @@ function deletarProduto(id) {
 
     console.log(`Produto de código ${id} deletado com sucesso!`);
 }
+
+function updateProduto(objeto, id){
+    db.transaction(function (tx) {
+        tx.executeSql('UPDATE produtos SET nome = ?, unidade_medida = ?, quantidade = ?, preco = ?, perecivel = ?, data_validade = ?, data_fabricacao = ? WHERE rowid = ?', [objeto.nome, objeto.unidade, objeto.quantidade, objeto.preco, objeto.perecivel, objeto.dataValidade, objeto.dataFabricacao, id+1]);
+    });
+}
