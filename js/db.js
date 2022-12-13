@@ -54,6 +54,7 @@ function insereFuncionario(objeto) {
 }
 
 function updateFuncionario(objeto, id){
+    id = parseInt(id) + 1;
     db.transaction(function (tx) {
         tx.executeSql('UPDATE funcionarios SET nome = ?, cargo = ?, setor = ? WHERE rowid = ?', [objeto.nome, objeto.cargo, objeto.setor, id]);
     });
@@ -61,10 +62,10 @@ function updateFuncionario(objeto, id){
 
 function deletarFuncionario(id) {
     db.transaction(function (tx) {
-        tx.executeSql('DELETE FROM funcionarios WHERE rowid = ?', [id]);
+        tx.executeSql('DELETE FROM funcionarios WHERE rowid = ?', [id+1]);
     });
 
-    console.log(`Funcionário de código ${id} deletado com sucesso!`);
+    console.log(`Funcionário de código ${id+1} deletado com sucesso!`);
 }
 
 function selectTodosFuncionarios() {
@@ -80,8 +81,10 @@ function selectTodosFuncionarios() {
                 }
                 array.push(item);
             }
+            console.log(array);
+            
         });
     });
 
-    return array;
+    return transformarEmJson(array); 
 }

@@ -1,11 +1,11 @@
 $(document).ready(function(){
-    listar();
+    listarFuncionarios();
 });
 
-function listar(){
+function listarFuncionarios(){
 
-    //let itensTabela = buscarDeLocalStorage("itensTabela");
-    let funcionariosTabela = selectTodosProdutos();
+    let funcionariosTabela = buscarFuncionarioDeLocalStorage();
+    let funcionariosTabela2 = selectTodosFuncionarios();
     funcionariosTabela = transformaJsonEmObjeto(funcionariosTabela);
     funcionariosTabela.forEach(inserirLinhaFuncionario);
     
@@ -22,5 +22,5 @@ function inserirLinhaFuncionario(item, index){
     <td>${item.setor}</td>
     </tr>`;
 
-    $("#tbody").append(html);
+    $("#tbodyfuncionario").append(html);
 }

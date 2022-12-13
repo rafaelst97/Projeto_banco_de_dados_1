@@ -19,6 +19,12 @@ function buscarDeLocalStorage() {
 }
 
 function buscarFuncionarioDeLocalStorage() {
+    let retorno = localStorage.getItem("itensTabela");
+
+    return retorno;
+}
+
+function buscarFuncionarioDeLocalStorage() {
     let retorno = localStorage.getItem("funcionarioTabela");
 
     return retorno;

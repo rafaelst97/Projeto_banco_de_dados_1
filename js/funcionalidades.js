@@ -117,9 +117,13 @@ function excluirItem(){
 
 function excluirFuncionario(){
     let id = $("#idExcluir").val();
-
+    let funcionariosTabela = buscarFuncionarioDeLocalStorage();
+    funcionariosTabela = transformaJsonEmObjeto(funcionariosTabela);
+    funcionariosTabela.splice(id, 1);
+    funcionariosTabela = transformarEmJson(funcionariosTabela);
+    salvarFuncionarioEmLocalStorage(funcionariosTabela);
     deletarFuncionario(id);
-    modal("#avisoExcluido");
+    modal("#avisoFuncionarioExcluido");
 }
 
 function editaItem(id){
@@ -142,4 +146,13 @@ function editaItem(id){
     }else{
         $("#validade").prop("disabled", true);
     }
+}
+
+function editaFuncionario(id){
+    let funcionarios = buscarFuncionarioDeLocalStorage();
+    funcionarios = transformaJsonEmObjeto(funcionarios);
+    $("#funcionarioEditado").val(id);
+    $("#nomeFuncionario").val(funcionarios[id].nome);
+    $("#cargo").val(funcionarios[id].cargo);
+    $("#setor").val(funcionarios[id].setor);
 }
