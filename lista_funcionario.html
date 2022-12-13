@@ -16,7 +16,7 @@
     <script src="js/funcionalidades.js"></script>
     <script src="js/util.js"></script>
     <script src="js/validacoes.js"></script>
-    <script src="js/listagem.js"></script>
+    <script src="js/listagemFuncionario.js"></script>
     <script src="js/armazenamento.js"></script>
     <script src="js/mascaras.js"></script>
     <script src="js/elementos.js"></script>
@@ -24,139 +24,84 @@
 </head>
 
 <body>
-    <!-- Modal item vencido -->
-    <div class="modal fade" id="itemVencido" tabindex="-1" aria-labelledby="itemVencidoLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="itemVencidoLabel">Item Vencido</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    O item que está sendo cadastrado está vencido
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#itemVencido">Ok</button>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- Modal Conclusão Exclusão -->
-    <div class="modal fade" id="avisoExcluido" tabindex="-1" aria-labelledby="avisoExcluidoLabel" aria-hidden="true">
+    <div class="modal fade" id="avisoFuncionarioExcluido" tabindex="-1" aria-labelledby="avisoFuncionarioExcluidoLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="avisoExcluidoLabel">Item Excluído</h5>
+                    <h5 class="modal-title" id="avisoFuncionarioExcluidoLabel">Funcionário Excluído</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    O item foi excluído com sucesso.
+                    O funcionário foi excluído com sucesso.
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#avisoExcluido" onclick="atualizaPagina()">Ok</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#avisoFuncionarioExcluido" onclick="atualizaPagina()">Ok</button>
                 </div>
             </div>
         </div>
     </div>
     <!-- Modal Edição-->
-    <div class="modal fade" id="edicaoModal" tabindex="-1" aria-labelledby="edicaoModalLabel" aria-hidden="true">
+    <div class="modal fade" id="edicaoFuncionarioModal" tabindex="-1" aria-labelledby="edicaoFuncionarioModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="edicaoModalLabel">Edição de item</h5>
+                    <h5 class="modal-title" id="edicaoFuncionarioModalLabel">Edição de Funcionário</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="row">
                         <small><span class="required">* Preenchimento obrigatório</span></small>
                         <div class="col-sm-12 form-group">
-                            <label for="nome">Nome: </label><span class="required">*</span>
-                            <input type="text" class="form-control" id="nome" aria-describedby="nomeProduto"
-                                maxlength="50" required>
-                            <span id="semNome" class="alert alert-danger" hidden>Nome é obrigatório</span>
-                            <span id="maximoCaracteres" class="alert alert-danger" hidden>Nome deve possuir no máximo 50
-                                caracteres</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6 form-group">
-                            <label for="unidade">Unidade de medida: </label><span class="required">*</span>
-                            <select id="unidade" class="form-select" aria-label="unidadeMedida" required>
-                                <option disabled selected value="">Selecione...</option>
-                                <option value="Unidade">Unidade</option>
-                                <option value="Litro">Litro</option>
-                                <option value="Quilograma">Quilograma</option>
-                            </select>
-                            <span id="semUnidade" class="alert alert-danger" hidden>Unidade de medida é
-                                obrigatória</span>
-                        </div>
-                        <div class="col-sm-6 form-group">
-                            <label for="quantidade">Quantidade: </label>
-                            <input type="text" class="form-control" id="quantidade" aria-describedby="quantidade"
-                                onkeyup="mascaraQuantidade(this)">
+                            <label for="nomeFuncionario">Nome: </label><span class="required">*</span>
+                                <input type="text" class="form-control" id="nomeFuncionario" aria-describedby="nomeFuncionario"
+                                    maxlength="50" required>
+                                <span id="semNomeFuncionario" class="alert alert-danger mt-2" hidden>Nome é obrigatório</span>
+                                <span id="maximoCaracteresFuncionario" class="alert alert-danger mt-2" hidden>Nome deve possuir no
+                                    máximo 50
+                                    caracteres</span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12 form-group">
-                            <label for="preco">Preço: </label><span class="required">*</span>
-                            <input type="text" class="form-control" id="preco" aria-describedby="preco"
-                                placeholder="R$0,00" required onkeyup="mascaraReal(this)">
-                            <span id="semPreco" class="alert alert-danger" hidden>Preço é obrigatório</span>
+                            <label for="cargo">Cargo: </label><span class="required">*</span>
+                            <input type="text" class="form-control" id="cargo" aria-describedby="cargo"
+                                maxlength="50" required>
+                            <span id="semCargo" class="alert alert-danger mt-2" hidden>Cargo é obrigatório</span>
+                            <span id="maximoCaracteresCargo" class="alert alert-danger mt-2" hidden>Cargo deve possuir no
+                                máximo 50
+                                caracteres</span>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="container">
-                            <label for="selectPerecivel">Produto perecível: </label><span
-                                class="required d-inline-flex">*</span><br>
-                            <div class="form-check form-check-inline" id="selectPerecivel">
-                                <input class="form-check-input" type="radio" name="radioPerecivel"
-                                    id="radioPerecivelTrue" value="true" required>
-                                <label class="form-check-label" for="inlineRadio1">Sim</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="radioPerecivel"
-                                    id="radioPerecivelFalse" value="false">
-                                <label class="form-check-label" for="inlineRadio2">Não</label>
-                            </div>
-                            <br>
-                            <span id="semPerecivel" class="alert alert-danger" hidden>Obrigatório informar se é
-                                perecível</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6 form-group">
-                            <label for="validade">Data de validade: </label><span class="required">*</span>
-                            <input type="date" class="form-control" id="validade" aria-describedby="validade" disabled>
-                            <span id="semValidade" class="alert alert-danger" hidden>Validade obrigatória</span>
-                        </div>
-                        <div class="col-sm-6 form-group">
-                            <label for="fabricacao">Data de fabricação: </label><span class="required">*</span>
-                            <input type="date" class="form-control" id="fabricacao" aria-describedby="fabricacao"
-                                required>
-                            <span id="semFabricacao" class="alert alert-danger" hidden>Fabricação obrigatória</span>
+                        <div class="col-sm-12 form-group">
+                            <label for="setor">Setor: </label><span class="required">*</span>
+                            <input type="text" class="form-control" id="setor" aria-describedby="setor"
+                            maxlength="50" required>
+                            <span id="semSetor" class="alert alert-danger mt-2" hidden>Setor é obrigatório</span>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <input type="hidden" value="" id="itemEditado">
+                    <input type="hidden" value="" id="funcionarioEditado">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edicaoModal"
-                        onclick="salvar(true)">Salvar</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edicaoFuncionarioModal"
+                        onclick="salvarFuncionario(true)">Salvar</button>
                 </div>
             </div>
         </div>
     </div>
     <!-- Modal Exclusão-->
-    <div class="modal fade" id="excluirItem" tabindex="-1" aria-labelledby="excluirItemModal" aria-hidden="true">
+    <div class="modal fade" id="excluirFuncionario" tabindex="-1" aria-labelledby="excluirFuncionarioModal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="excluirItemModal">Deseja realmente excluir este item?</h5>
+                    <h5 class="modal-title" id="excluirFuncionarioModal">Deseja realmente excluir este funcionário?</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <input type="hidden" id="idExcluir" value="">
-                    Após confirmar, o item será excluído permanentemente.
+                    Após confirmar, o funcionário será excluído permanentemente.
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -193,10 +138,8 @@
                                         <th class="fw-bold">Ações</th>
                                         <th class="fw-bold">Código</th>
                                         <th class="fw-bold">Nome</th>
-                                        <th class="fw-bold">Quantidade</th>
-                                        <th class="fw-bold">Preço</th>
-                                        <th class="fw-bold">Data de fabricação</th>
-                                        <th class="fw-bold">Data de validade</th>
+                                        <th class="fw-bold">Cargo</th>
+                                        <th class="fw-bold">Setor</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tbody">

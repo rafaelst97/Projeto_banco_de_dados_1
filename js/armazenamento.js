@@ -8,8 +8,18 @@ function salvarEmLocalStorage(json) {
     localStorage.setItem("itensTabela", json);
 }
 
+function salvarFuncionarioEmLocalStorage(json) {
+    localStorage.setItem("funcionarioTabela", json);
+}
+
 function buscarDeLocalStorage() {
     let retorno = localStorage.getItem("itensTabela");
+
+    return retorno;
+}
+
+function buscarFuncionarioDeLocalStorage() {
+    let retorno = localStorage.getItem("funcionarioTabela");
 
     return retorno;
 }

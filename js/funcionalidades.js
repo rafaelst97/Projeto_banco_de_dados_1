@@ -63,6 +63,8 @@ function salvarFuncionario(edicao = false){
     let nome = $("#nomeFuncionario").val();
     let cargo = $("#cargo").val();
     let setor = $("#setor").val();
+    let funcionariosTabela = buscarFuncionarioDeLocalStorage("funcionariosTabela");
+        funcionariosTabela = transformaJsonEmObjeto(funcionariosTabela);
 
     let funcionario ={
         nome: nome,
@@ -73,10 +75,28 @@ function salvarFuncionario(edicao = false){
     funcionarioValido = validarEntradasFuncionario(funcionario);
 
     if (funcionarioValido == true){
-        insereFuncionario(funcionario);
-        modal("#funcionarioSalvo");
-    }else{
-        updateFuncionario(funcionario);
+
+        if (funcionariosTabela == null){
+            funcionariosTabela = [];
+        }
+
+        if (edicao == false){
+            funcionariosTabela.push(funcionario);
+            modal("#funcionarioSalvo");
+
+        }else{
+            let id = $("#funcionarioEditado").val();
+            updateFuncionario(funcionario, id);
+            funcionariosTabela[id] = funcionario;
+            atualizaPagina();
+        }
+
+        if (edicao == false){
+            insereFuncionario(funcionario);
+        }
+
+        funcionariosTabela = transformarEmJson(funcionariosTabela);
+        salvarFuncionarioEmLocalStorage(funcionariosTabela);
     }
 }
 
@@ -92,6 +112,13 @@ function excluirItem(){
     itensTabela.splice(id, 1);
     itensTabela = transformarEmJson(itensTabela);
     salvarEmLocalStorage(itensTabela);
+    modal("#avisoExcluido");
+}
+
+function excluirFuncionario(){
+    let id = $("#idExcluir").val();
+
+    deletarFuncionario(id);
     modal("#avisoExcluido");
 }
 
