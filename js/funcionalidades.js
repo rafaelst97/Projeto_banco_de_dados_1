@@ -59,18 +59,75 @@ function salvar(edicao = false){
     }
 }
 
+function salvarFuncionário(edicao = false){
+
+    let nome = $("#nome").val();
+    let cargo = $("#cargo").val();
+    let setor = $("#setor").val();
+    let funcionáriosTabela = buscarDeLocalStorage("funcionáriosTabela");
+        funcionáriosTabela = transformaJsonEmObjeto(funcionáriosTabela);
+        
+    let funcionário ={
+        nome: nome,
+        cargo: cargo,
+        setor: setor
+    };
+
+    if (funcionáriosTabela == null){
+        funcionáriosTabela = [];
+    }
+
+    if (edicao == false){
+        funcionáriosTabela.push(funcionário);
+        modal("#funcionárioSalvo");
+
+    }else{
+        let id = $("#funcionárioEditado").val();
+        updateProduto(funcionário, id);
+        funcionáriosTabela[id] = funcionário;
+        atualizaPagina();
+    }
+
+        if (edicao == false){
+            inserirProduto(funcionário);
+        }
+
+        funcionáriosTabela = transformarEmJson(funcionáriosTabela);
+        salvarEmLocalStorage(funcionáriosTabela);
+}
+
 function preparaModal(id){
     $("#idExcluir").val(id);
 }
 
 function excluirItem(){
     let id = $("#idExcluir").val();
-    let itensTabela = buscarDeLocalStorage("itensTabela");
+    let itensTabela = buscarDeLocalStorage("funcionáriosTabela");
     deletarProduto(id);
     itensTabela = transformaJsonEmObjeto(itensTabela);   
     itensTabela.splice(id, 1);
     itensTabela = transformarEmJson(itensTabela);
     salvarEmLocalStorage(itensTabela);
+    modal("#avisoExcluido");
+}
+
+function editaFuncionário(id){
+    let itens = buscarDeLocalStorage();
+    itens = transformaJsonEmObjeto(itens);
+    $("#funcionárioEditado").val(id);
+    $("#nome").val(itens[id].nome);
+    $("#cargo").val(itens[id].unidade);
+    $("#setor").val(itens[id].quantidade);
+}
+
+function excluirFuncionário(){
+    let id = $("#idExcluir").val();
+    let funcionáriosTabela = buscarDeLocalStorage("funcionáriosTabela");
+    deletarProduto(id);
+    funcionáriosTabela = transformaJsonEmObjeto(funcionáriosTabela);   
+    funcionáriosTabela.splice(id, 1);
+    funcionáriosTabela = transformarEmJson(funcionáriosTabela);
+    salvarEmLocalStorage(funcionáriosTabela);
     modal("#avisoExcluido");
 }
 

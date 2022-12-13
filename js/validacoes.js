@@ -2,6 +2,8 @@ function validarEntradas(entrada) {
 
     let entradaValida = true;
 
+    //nome
+
     if (entrada.nome == "" || entrada.nome == null) {
         ativarAlerta("#semNome");
         entradaValida = false;
@@ -15,6 +17,7 @@ function validarEntradas(entrada) {
     }else{
         desativarAlerta("#maximoCaracteres");
     }
+
 
     if (entrada.unidade == "" || entrada.unidade == null) {
         ativarAlerta("#semUnidade");

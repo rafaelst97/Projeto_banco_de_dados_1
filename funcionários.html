@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="js/db.js"></script>
+    <script src="js/funcionalidades.js"></script>
+    <script src="js/util.js"></script>
+    <script src="js/validacoes.js"></script>
+    <script src="js/listagem.js"></script>
+    <script src="js/armazenamento.js"></script>
+    <script src="js/mascaras.js"></script>
+    <script src="js/elementos.js"></script>
+    <title>Listagem</title>
+</head>
+
+<div class="container margemAjustada justify-content-center">
+    <div class="row">
+        <div class="col-sm-2">
+            <div class="btn-group-vertical mb-2">
+                <nav class="btn-group-vertical flex-column">
+                    <a href="index.html" class="btn btn-primary active">Formulário</a>
+                    <a href="listagem.html" class="btn btn-primary">Listagem</a>
+                    <a href="funcionários.html" class="btn btn-primary">Funcionários</a>
+                </nav>
+            </div>
+        </div>
+<div class="col-sm-10">
+    <div class="border border-2 rounded pe-5 ps-3 listagem">
+        <div class="row">
+            <div class="col-sm-12 m-3">
+                <a href="cadastro_funcionários.html" class="medidasBotao w-25 btn btn-success">Adicionar</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 m-3 ">
+                <table class="table table-striped table-bordered table-hover col-sm-10">
+                    <thead class="col-sm-12">
+                        <tr>
+                            <th class="fw-bold">Nome</th>
+                            <th class="fw-bold">Cargo</th>
+                            <th class="fw-bold">Setor</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
