@@ -59,41 +59,48 @@ function salvar(edicao = false){
     }
 }
 
-function salvarFuncionário(edicao = false){
 
-    let nome = $("#nome").val();
+function salvarFuncionario(edicao = false){
+    let nome = $("#nomeFuncionario").val();
     let cargo = $("#cargo").val();
     let setor = $("#setor").val();
-    let funcionáriosTabela = buscarDeLocalStorage("funcionáriosTabela");
-        funcionáriosTabela = transformaJsonEmObjeto(funcionáriosTabela);
-        
-    let funcionário ={
+    let funcionariosTabela = buscarFuncionarioDeLocalStorage("funcionariosTabela");
+        funcionariosTabela = transformaJsonEmObjeto(funcionariosTabela);
+
+    let funcionario ={
+
         nome: nome,
         cargo: cargo,
         setor: setor
     };
 
-    if (funcionáriosTabela == null){
-        funcionáriosTabela = [];
-    }
 
-    if (edicao == false){
-        funcionáriosTabela.push(funcionário);
-        modal("#funcionárioSalvo");
+    funcionarioValido = validarEntradasFuncionario(funcionario);
 
-    }else{
-        let id = $("#funcionárioEditado").val();
-        updateProduto(funcionário, id);
-        funcionáriosTabela[id] = funcionário;
-        atualizaPagina();
-    }
+    if (funcionarioValido == true){
 
-        if (edicao == false){
-            inserirProduto(funcionário);
+        if (funcionariosTabela == null){
+            funcionariosTabela = [];
         }
 
-        funcionáriosTabela = transformarEmJson(funcionáriosTabela);
-        salvarEmLocalStorage(funcionáriosTabela);
+        if (edicao == false){
+            funcionariosTabela.push(funcionario);
+            modal("#funcionarioSalvo");
+
+        }else{
+            let id = $("#funcionarioEditado").val();
+            updateFuncionario(funcionario, id);
+            funcionariosTabela[id] = funcionario;
+            atualizaPagina();
+        }
+
+        if (edicao == false){
+            insereFuncionario(funcionario);
+        }
+
+        funcionariosTabela = transformarEmJson(funcionariosTabela);
+        salvarFuncionarioEmLocalStorage(funcionariosTabela);
+    }
 }
 
 function preparaModal(id){
@@ -111,24 +118,16 @@ function excluirItem(){
     modal("#avisoExcluido");
 }
 
-function editaFuncionário(id){
-    let itens = buscarDeLocalStorage();
-    itens = transformaJsonEmObjeto(itens);
-    $("#funcionárioEditado").val(id);
-    $("#nome").val(itens[id].nome);
-    $("#cargo").val(itens[id].unidade);
-    $("#setor").val(itens[id].quantidade);
-}
 
-function excluirFuncionário(){
+function excluirFuncionario(){
     let id = $("#idExcluir").val();
-    let funcionáriosTabela = buscarDeLocalStorage("funcionáriosTabela");
-    deletarProduto(id);
-    funcionáriosTabela = transformaJsonEmObjeto(funcionáriosTabela);   
-    funcionáriosTabela.splice(id, 1);
-    funcionáriosTabela = transformarEmJson(funcionáriosTabela);
-    salvarEmLocalStorage(funcionáriosTabela);
-    modal("#avisoExcluido");
+    let funcionariosTabela = buscarFuncionarioDeLocalStorage();
+    funcionariosTabela = transformaJsonEmObjeto(funcionariosTabela);
+    funcionariosTabela.splice(id, 1);
+    funcionariosTabela = transformarEmJson(funcionariosTabela);
+    salvarFuncionarioEmLocalStorage(funcionariosTabela);
+    deletarFuncionario(id);
+    modal("#avisoFuncionarioExcluido");
 }
 
 function editaItem(id){
@@ -151,4 +150,13 @@ function editaItem(id){
     }else{
         $("#validade").prop("disabled", true);
     }
+}
+
+function editaFuncionario(id){
+    let funcionarios = buscarFuncionarioDeLocalStorage();
+    funcionarios = transformaJsonEmObjeto(funcionarios);
+    $("#funcionarioEditado").val(id);
+    $("#nomeFuncionario").val(funcionarios[id].nome);
+    $("#cargo").val(funcionarios[id].cargo);
+    $("#setor").val(funcionarios[id].setor);
 }

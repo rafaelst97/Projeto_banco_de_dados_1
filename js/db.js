@@ -85,3 +85,45 @@ function updateFuncionario(objeto, id){
         tx.executeSql('UPDATE produtos SET nome = ?, cargo = ?, setor = ? WHERE rowid = ?', [objeto.nome, objeto.cargo, objeto.setor, id+1]);
     });
 }
+
+function insereFuncionario(objeto) {
+    db.transaction(function (tx) {
+        tx.executeSql('INSERT INTO funcionarios (nome, cargo, setor) VALUES (?,?,?)', [objeto.nome, objeto.cargo, objeto.setor]);
+    });
+}
+
+function updateFuncionario(objeto, id){
+    id = parseInt(id) + 1;
+    db.transaction(function (tx) {
+        tx.executeSql('UPDATE funcionarios SET nome = ?, cargo = ?, setor = ? WHERE rowid = ?', [objeto.nome, objeto.cargo, objeto.setor, id]);
+    });
+}
+
+function deletarFuncionario(id) {
+    db.transaction(function (tx) {
+        tx.executeSql('DELETE FROM funcionarios WHERE rowid = ?', [id+1]);
+    });
+
+    console.log(`Funcionário de código ${id+1} deletado com sucesso!`);
+}
+
+function selectTodosFuncionarios() {
+    let array = new Array();
+    db.transaction(function (tx) {
+        tx.executeSql('SELECT * FROM funcionarios', [], function (tx, results) {
+            var len = results.rows.length, i;
+            for (i = 0; i < len; i++) {
+                let item ={
+                    nome: results.rows.item(i).nome,
+                    cargo: results.rows.item(i).cargo,
+                    setor: results.rows.item(i).setor
+                }
+                array.push(item);
+            }
+            console.log(array);
+            
+        });
+    });
+
+    return transformarEmJson(array); 
+}
