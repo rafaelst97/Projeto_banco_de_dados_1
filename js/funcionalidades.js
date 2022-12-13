@@ -74,7 +74,7 @@ function salvarFuncionario(edicao = false){
 
     if (funcionarioValido == true){
         insereFuncionario(funcionario);
-        atualizaPagina();
+        modal("#funcionarioSalvo");
     }else{
         updateFuncionario(funcionario);
     }
