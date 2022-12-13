@@ -59,6 +59,27 @@ function salvar(edicao = false){
     }
 }
 
+function salvarFuncionario(edicao = false){
+    let nome = $("#nomeFuncionario").val();
+    let cargo = $("#cargo").val();
+    let setor = $("#setor").val();
+
+    let funcionario ={
+        nome: nome,
+        cargo: cargo,
+        setor: setor
+    };
+
+    funcionarioValido = validarEntradasFuncionario(funcionario);
+
+    if (funcionarioValido == true){
+        insereFuncionario(funcionario);
+        atualizaPagina();
+    }else{
+        updateFuncionario(funcionario);
+    }
+}
+
 function preparaModal(id){
     $("#idExcluir").val(id);
 }

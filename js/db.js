@@ -1,6 +1,7 @@
 var db = openDatabase('banco', '1.0', 'banco de dados', 2097152);
 db.transaction(function (tx) {
     tx.executeSql('CREATE TABLE IF NOT EXISTS produtos (nome TEXT, unidade_medida TEXT, quantidade TEXT, preco TEXT, perecivel TINYINT, data_validade DATE, data_fabricacao DATE)');
+    tx.executeSql('CREATE TABLE IF NOT EXISTS funcionarios (nome TEXT, cargo TEXT, setor TEXT)');
 });
 
 function inserirProduto(objeto) {
@@ -43,5 +44,17 @@ function deletarProduto(id) {
 function updateProduto(objeto, id){
     db.transaction(function (tx) {
         tx.executeSql('UPDATE produtos SET nome = ?, unidade_medida = ?, quantidade = ?, preco = ?, perecivel = ?, data_validade = ?, data_fabricacao = ? WHERE rowid = ?', [objeto.nome, objeto.unidade, objeto.quantidade, objeto.preco, objeto.perecivel, objeto.dataValidade, objeto.dataFabricacao, id+1]);
+    });
+}
+
+function insereFuncionario(objeto) {
+    db.transaction(function (tx) {
+        tx.executeSql('INSERT INTO funcionarios (nome, cargo, setor) VALUES (?,?,?)', [objeto.nome, objeto.cargo, objeto.setor]);
+    });
+}
+
+function updateFuncionario(objeto, id){
+    db.transaction(function (tx) {
+        tx.executeSql('UPDATE funcionarios SET nome = ?, cargo = ?, setor = ? WHERE rowid = ?', [objeto.nome, objeto.cargo, objeto.setor, id]);
     });
 }

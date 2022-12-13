@@ -54,6 +54,58 @@ function validarEntradas(entrada) {
     return entradaValida;
 }
 
+function validarEntradasFuncionario(entrada) {
+    let entradaValida = true;
+
+    if (entrada.nome == "" || entrada.nome == null) {
+        ativarAlerta("#semNomeFuncionario");
+        entradaValida = false;
+    }else{
+        desativarAlerta("#semNomeFuncionario");
+    }
+
+    if (entrada.cargo == "" || entrada.cargo == null) {
+        ativarAlerta("#semCargo");
+        entradaValida = false;
+    }else{
+        desativarAlerta("#semCargo");
+    }
+
+    if (entrada.setor == "" || entrada.setor == null) {
+        ativarAlerta("#semSetor");
+        entradaValida = false;
+    }else{
+        desativarAlerta("#semSetor");
+    }
+
+    if (entrada.nome.length > 50) {
+
+        ativarAlerta("#maximoCaracteresFuncionario");
+        entradaValida = false;
+    }else{
+        desativarAlerta("#maximoCaracteresFuncionario");
+    }
+
+    if (entrada.cargo.length > 50) {
+
+        ativarAlerta("#maximoCaracteresCargo");
+        entradaValida = false;
+    }else{
+        desativarAlerta("#maximoCaracteresCargo");
+    }
+
+    if (entrada.setor.length > 50) {
+
+        ativarAlerta("#maximoCaracteresSetor");
+        entradaValida = false;
+    }else{
+        desativarAlerta("#maximoCaracteresSetor");
+    }
+
+    return entradaValida;
+}
+
+
 $(document).on("change", "input[name='radioPerecivel']", function(){
     let valorRadio = $('input[name="radioPerecivel"]:checked').val();
 
