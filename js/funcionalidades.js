@@ -59,6 +59,7 @@ function salvar(edicao = false){
     }
 }
 
+
 function salvarFuncionario(edicao = false){
     let nome = $("#nomeFuncionario").val();
     let cargo = $("#cargo").val();
@@ -67,10 +68,12 @@ function salvarFuncionario(edicao = false){
         funcionariosTabela = transformaJsonEmObjeto(funcionariosTabela);
 
     let funcionario ={
+
         nome: nome,
         cargo: cargo,
         setor: setor
     };
+
 
     funcionarioValido = validarEntradasFuncionario(funcionario);
 
@@ -106,7 +109,7 @@ function preparaModal(id){
 
 function excluirItem(){
     let id = $("#idExcluir").val();
-    let itensTabela = buscarDeLocalStorage("itensTabela");
+    let itensTabela = buscarDeLocalStorage("funcionáriosTabela");
     deletarProduto(id);
     itensTabela = transformaJsonEmObjeto(itensTabela);   
     itensTabela.splice(id, 1);
@@ -114,6 +117,7 @@ function excluirItem(){
     salvarEmLocalStorage(itensTabela);
     modal("#avisoExcluido");
 }
+
 
 function excluirFuncionario(){
     let id = $("#idExcluir").val();

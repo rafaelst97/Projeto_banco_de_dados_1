@@ -10,6 +10,31 @@ function inserirProduto(objeto) {
     });
 }
 
+function inserirFuncionário(objeto) {
+    db.transaction(function (tx) {
+        tx.executeSql('INSERT INTO funcionarios (nome, cargo, setor) VALUES (?,?,?,?,?,?,?)', [objeto.nome, objeto.cargo, objeto.setor]);
+    });
+}
+
+function selectTodosFuncionários() {
+    let array = new Array();
+    db.transaction(function (tx) {
+        tx.executeSql('SELECT * FROM funcionarios', [], function (tx, results) {
+            var len = results.rows.length, i;
+            for (i = 0; i < len; i++) {
+                let item ={
+                    nome: results.rows.item(i).nome,
+                    cargo: results.rows.item(i).cargo,
+                    setor: results.rows.item(i).setor,
+                }
+                array.push(item);
+            }
+            console.log(array);
+            return transformarEmJson(array); 
+        });
+    });
+}
+
 function selectTodosProdutos() {
     let array = new Array();
     db.transaction(function (tx) {
@@ -41,9 +66,23 @@ function deletarProduto(id) {
     console.log(`Produto de código ${id} deletado com sucesso!`);
 }
 
+function deletarFuncionário(id) {
+    db.transaction(function (tx) {
+        tx.executeSql('DELETE FROM funcionarios WHERE rowid = ?', [id+1]);
+    });
+
+    console.log(`Produto de código ${id} deletado com sucesso!`);
+}
+
 function updateProduto(objeto, id){
     db.transaction(function (tx) {
-        tx.executeSql('UPDATE produtos SET nome = ?, unidade_medida = ?, quantidade = ?, preco = ?, perecivel = ?, data_validade = ?, data_fabricacao = ? WHERE rowid = ?', [objeto.nome, objeto.unidade, objeto.quantidade, objeto.preco, objeto.perecivel, objeto.dataValidade, objeto.dataFabricacao, id+1]);
+        tx.executeSql('UPDATE produtos SET nome = ?, cargo = ?, setor = ? WHERE rowid = ?', [objeto.nome, objeto.cargo, objeto.setor, id+1]);
+    });
+}
+
+function updateFuncionario(objeto, id){
+    db.transaction(function (tx) {
+        tx.executeSql('UPDATE produtos SET nome = ?, cargo = ?, setor = ? WHERE rowid = ?', [objeto.nome, objeto.cargo, objeto.setor, id+1]);
     });
 }
 
